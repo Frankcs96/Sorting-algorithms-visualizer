@@ -5,12 +5,14 @@ import Visualizer from "./components/visualizer/Visualizer";
 import generateRandomArray from "./utils/arraygenerator";
 import bubbleSort, { bubbleSortAnimation } from "./algorithms/bubblesort";
 import debugArray from "./algorithms/debug";
+import useInterval from "./hooks/useinterval";
 
 function App() {
-  let arraySize = 10;
+  let arraySize = 20;
 
   const [array, setArray] = useState(generateRandomArray(arraySize, 50, 280));
   const [bubbleSortState, setBubbleSortState] = useState({ i: 0, j: 0 });
+  const [running, setRunning] = useState(false);
 
   const resetArray = () => {
     setArray(generateRandomArray(arraySize, 50, 280));
@@ -34,6 +36,8 @@ function App() {
     console.log(debugArray(array));
     console.log(bubbleSortState.i, bubbleSortState.j);
   };
+
+  useInterval(sortArray, 20);
 
   return (
     <div>
