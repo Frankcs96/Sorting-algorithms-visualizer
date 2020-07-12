@@ -5,7 +5,7 @@ function Menu(props) {
   return (
     <div>
       <button onClick={props.resetArray}> Reset array</button>
-      <button onClick={props.sortArray}>Sort</button>
+      <button onClick={props.run}>Sort</button>
     </div>
   );
 }

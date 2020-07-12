@@ -9,13 +9,20 @@ import useInterval from "./hooks/useinterval";
 
 function App() {
   let arraySize = 20;
+  let speed = 40;
 
   const [array, setArray] = useState(generateRandomArray(arraySize, 50, 280));
   const [bubbleSortState, setBubbleSortState] = useState({ i: 0, j: 0 });
   const [running, setRunning] = useState(false);
 
   const resetArray = () => {
-    setArray(generateRandomArray(arraySize, 50, 280));
+    if (!running) {
+      setArray(generateRandomArray(arraySize, 50, 280));
+    }
+  };
+
+  const run = () => {
+    setRunning(true);
   };
 
   const sortArray = () => {
@@ -30,6 +37,7 @@ function App() {
     setBubbleSortState({ i: bubbleSortPointers.i, j: bubbleSortPointers.j });
 
     if (debugArray(array)) {
+      setRunning(false);
       setBubbleSortState({ i: 0, j: 0 });
     }
     //DEBUG: check if array is sorted
@@ -37,12 +45,12 @@ function App() {
     console.log(bubbleSortState.i, bubbleSortState.j);
   };
 
-  useInterval(sortArray, 20);
+  useInterval(sortArray, speed, running);
 
   return (
     <div>
       <h1>Algorithms visualizer</h1>
-      <Menu resetArray={() => resetArray()} sortArray={() => sortArray()} />
+      <Menu resetArray={() => resetArray()} run={() => run()} />
       <Visualizer array={array} />
     </div>
   );
