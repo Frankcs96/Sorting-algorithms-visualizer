@@ -8,25 +8,32 @@ import debugArray from "./algorithms/debug";
 import useInterval from "./hooks/useinterval";
 
 function App() {
-  let arraySize = 20;
-  let speed = 40;
+  let arraySize = 40;
+  let speed = 3;
 
+  //General states
   const [array, setArray] = useState(generateRandomArray(arraySize, 50, 280));
-  const [bubbleSortState, setBubbleSortState] = useState({ i: 0, j: 0 });
   const [running, setRunning] = useState(false);
+  const [sorted, setSorted] = useState(false);
+
+  //Algorithms states
+  const [bubbleSortState, setBubbleSortState] = useState({ i: 0, j: 0 });
 
   const resetArray = () => {
     if (!running) {
+      setSorted(false);
       setArray(generateRandomArray(arraySize, 50, 280));
     }
   };
 
   const run = () => {
-    setRunning(true);
+    if (!sorted) {
+      setRunning(true);
+    }
   };
 
   const sortArray = () => {
-    setArray(bubbleSort(array, bubbleSortState.i, bubbleSortState.j));
+    setArray(bubbleSort(array, bubbleSortState.j));
 
     let bubbleSortPointers = bubbleSortAnimation(
       array,
@@ -36,8 +43,9 @@ function App() {
 
     setBubbleSortState({ i: bubbleSortPointers.i, j: bubbleSortPointers.j });
 
-    if (debugArray(array)) {
+    if (bubbleSortPointers.i >= array.length) {
       setRunning(false);
+      setSorted(true);
       setBubbleSortState({ i: 0, j: 0 });
     }
     //DEBUG: check if array is sorted
@@ -45,13 +53,19 @@ function App() {
     console.log(bubbleSortState.i, bubbleSortState.j);
   };
 
+  //custom hook to start animation
   useInterval(sortArray, speed, running);
 
   return (
     <div>
       <h1>Algorithms visualizer</h1>
       <Menu resetArray={() => resetArray()} run={() => run()} />
-      <Visualizer array={array} />
+      <Visualizer
+        array={array}
+        bubbleSortState={bubbleSortState}
+        running={running}
+        sorted={sorted}
+      />
     </div>
   );
 }

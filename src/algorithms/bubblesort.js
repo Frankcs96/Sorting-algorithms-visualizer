@@ -1,4 +1,4 @@
-export default function bubbleSort(array, i, j) {
+export default function bubbleSort(array, j) {
   const sortedArray = [...array];
 
   if (sortedArray[j] > sortedArray[j + 1]) {

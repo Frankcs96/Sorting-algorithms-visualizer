@@ -1,6 +1,13 @@
 .bar {
-    background-color: black;
-    width: 10px;
-    margin: 2px;
+  background-color: black;
+  width: 10px;
+  margin: 2px;
+}
 
+.bar.bar-selected {
+  background-color: red;
+}
+
+.bar.bar-sorted {
+  background-color: green;
 }
