@@ -8,8 +8,8 @@ import debugArray from "./algorithms/debug";
 import useInterval from "./hooks/useinterval";
 
 function App() {
-  let arraySize = 40;
-  let speed = 3;
+  let arraySize = 35;
+  let speed = 10;
 
   //General states
   const [array, setArray] = useState(generateRandomArray(arraySize, 50, 280));
