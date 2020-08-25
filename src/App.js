@@ -15,9 +15,18 @@ function App() {
   const [array, setArray] = useState(generateRandomArray(arraySize, 50, 280));
   const [running, setRunning] = useState(false);
   const [sorted, setSorted] = useState(false);
+  const [usingAlgo, setUsingAlgo] = useState(0);
 
   //Algorithms states
   const [bubbleSortState, setBubbleSortState] = useState({ i: 0, j: 0 });
+
+  const manageAlgorithm = (n) => {
+    if (!running) {
+      setUsingAlgo(n);
+    }
+
+    console.log(usingAlgo);
+  };
 
   const resetArray = () => {
     if (!running) {
@@ -32,7 +41,7 @@ function App() {
     }
   };
 
-  const sortArray = () => {
+  const sortArrayWithBubble = () => {
     setArray(bubbleSort(array, bubbleSortState.j));
 
     let bubbleSortPointers = bubbleSortAnimation(
@@ -53,13 +62,42 @@ function App() {
     console.log(bubbleSortState.i, bubbleSortState.j);
   };
 
+  const sortArray = () => {
+    if (usingAlgo === 0) {
+      alert("Select an algorithm");
+      setRunning(false);
+    }
+    if (usingAlgo === 1) {
+      sortArrayWithBubble();
+    }
+    if (usingAlgo === 2) {
+      alert("ALGORITHM NOT IMPLEMENTED YET");
+      setRunning(false);
+    }
+    if (usingAlgo === 3) {
+      alert("ALGORITHM NOT IMPLEMENTED YET");
+      setRunning(false);
+    }
+    if (usingAlgo === 4) {
+      alert("ALGORITHM NOT IMPLEMENTED YET");
+      setRunning(false);
+    }
+    if (usingAlgo === 5) {
+      alert("ALGORITHM NOT IMPLEMENTED YET");
+      setRunning(false);
+    }
+  };
+
   //custom hook to start animation
   useInterval(sortArray, speed, running);
 
   return (
     <div>
-      <h1>Algorithms visualizer</h1>
-      <Menu resetArray={() => resetArray()} run={() => run()} />
+      <Menu
+        resetArray={() => resetArray()}
+        run={() => run()}
+        usingAlgo={(n) => manageAlgorithm(n)}
+      />
       <Visualizer
         array={array}
         bubbleSortState={bubbleSortState}

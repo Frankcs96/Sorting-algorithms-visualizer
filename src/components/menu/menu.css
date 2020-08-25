@@ -1,0 +1,38 @@
+#menuContainer {
+  background-color: #34495e;
+  margin: 0;
+  padding: 0;
+  height: 110px;
+  display: flex;
+}
+
+#actions {
+  display: flex;
+  flex: row;
+
+  width: 35%;
+  height: 150px;
+}
+
+.separator {
+  color: black;
+  background-color: black;
+  height: 110px;
+  width: 10px;
+}
+
+button {
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 10%;
+  margin: 20px;
+  padding: 15px;
+  width: 120px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.active {
+  color: red;
+}
